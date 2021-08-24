@@ -5,38 +5,44 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Test for POS Holding</title>
+  <link href="css/datepicker.min.css" rel="stylesheet">
   <link rel="stylesheet" href="css/main.min.css">
 </head>
 <body>
-  <!-- <h1>test</h1> -->
-  <section class="square-section"></section>
-  <section class="circle-section"></section>
-  <div class="modal hide">
+  <section class="square-section hide"></section>
+  <section class="circle-section hide"></section>
+  <div class="modal ">
     <form class="form" action="#">
+      
       <label class="form__select_label">
         <span class="form__select_name">Марка автомобиля</span>    
-        <select name="mark" id="mark">
-
-        </select>
+        <select name="mark" id="mark"></select>
       </label>   
+
       <label class="form__select_label">
         <span class="form__select_name">Модель автомобиля</span>      
-        <select name="model" id="model">
-          <!-- <option value="ВАЗ">ВАЗ</option>
-          <option value="ауди">ауди</option> -->
-        </select>
+        <select name="model" id="model"></select>
       </label> 
 
       <label class="form__select_label">
         <span class="form__select_name">Год автомобиля</span>    
-        <select name="year" id="year">
-          <!-- <option value="ВАЗ">ВАЗ</option>
-          <option value="ауди">ауди</option> -->
-        </select>
+        <select name="year" id="year"></select>
       </label>  
-      <button class="form__btn">Доставить</button>
+      
+      <input type="text" id="calendar" class="datepicker-here form__btn hide" placeholder="Доставить">
     </form>
   </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="js/datepicker.min.js"></script>
   <script src="js/script.js"></script>
+
+  <script>
+    // $(function () {
+    //   $('#calendar').datepicker({
+    //     minDate: new Date('2021-08-08'),
+    //     maxDate: new Date('2021-09-08')
+    //   });
+    // })
+  </script>
 </body>
 </html>

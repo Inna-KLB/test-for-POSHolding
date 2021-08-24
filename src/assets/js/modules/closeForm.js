@@ -1,0 +1,27 @@
+import createSquares from "./createSquares";
+
+const closeForm = (mark, model, year, delivery) => {
+  const modal = document.querySelector('.modal'),
+        circle = document.querySelector('.circle'),
+        circleSection = document.querySelector('.circle-section'),
+        squareSection = document.querySelector('.square-section');
+
+  modal.classList.add('hide');
+  circle.remove();
+  let text = document.createElement('div');
+  text.classList.add('text-delivery');
+  text.innerHTML = `
+    <p>Вы выбрали ${mark} ${model} ${year}, доставка ${delivery}.</p>
+    <button class="start">Начать заново</button>
+    `;
+  circleSection.append(text);
+
+  const btnStart = document.querySelector('.start');
+  btnStart.addEventListener('click', () => {
+    createSquares(squareSection, circleSection);
+    text.remove();
+  });
+
+
+};
+export default closeForm;

@@ -3,6 +3,9 @@ import createCircle from "./createCircle";
 import setAnimationSquare from "./setAnimationSquare";
 
 const createSquares = (containerSquare, containerCircle) => {
+  containerCircle.classList.add('hide');
+  containerSquare.classList.remove('hide');
+  
   const firstSquare = document.createElement('div');
     firstSquare.classList.add('square', 'square_top-left');
     containerSquare.append(firstSquare);

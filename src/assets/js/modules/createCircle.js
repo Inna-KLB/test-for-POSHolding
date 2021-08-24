@@ -1,7 +1,8 @@
 import showForm from "./showForm";
 
 const createCircle = (containerSquare, containerCircle) => {
-  containerSquare.style.display = 'none';
+  containerSquare.classList.add('hide');
+  containerCircle.classList.remove('hide');
   const circle = document.createElement('div');
   circle.classList.add('circle');
   const circleText = document.createElement('span');

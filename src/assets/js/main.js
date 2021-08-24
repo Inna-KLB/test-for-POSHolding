@@ -1,8 +1,5 @@
-// import createSquares from ".modules/createSquares";
 import selectCar from "./modules/selectCar";
-
 import createSquares from "./modules/createSquares";
-
 
 window.addEventListener('DOMContentLoaded', () => {
   'use strict';

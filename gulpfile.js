@@ -115,7 +115,7 @@ gulp.task('watch-files', () => {
   gulp.watch(src + '*.html', gulp.parallel('html'));
   gulp.watch(src + 'assets/sass/**/*.sass', gulp.parallel('sass'));
   gulp.watch(src + 'assets/js/**/*.js', gulp.parallel('build-js'));
-  gulp.watch(src + '*.json', gulp.parallel('json'));
+  gulp.watch(src + 'assets/*.json', gulp.parallel('json'));
 });
 
 
