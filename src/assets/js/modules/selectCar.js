@@ -6,21 +6,26 @@ const selectCar = () => {
   const selectMark = document.querySelector('#mark'),
         selectModel = document.querySelector('#model'),
         selectYear = document.querySelector('#year'),
-        btn = document.querySelector('.form__btn');
+        btn = document.querySelector('.form__btn'),
+        calendar = document.querySelector('.datepicker-here');
 
-  let sortCarsByMark = [],
-      sortCarsByModel = [],
-      markIndex,
-      modelIndex,
-      yearIndex,
-      selectedMark,
-      selectedModel,
-      selectedYear;
+  let sortCarsByMark = [], // массив для сбора отсортированных машин по их марке
+      sortCarsByModel = [], // массив для сбора отсортированных машин по их марке и модели
+      markIndex, // индекс выбранной марки
+      modelIndex, // индекс выбранной модели
+      yearIndex, // индекс выбранного года выпуска
+      selectedMark, // значение выбранной марки
+      selectedModel, // значение выбранной модели
+      selectedYear; // значение выбранного года выпуска
   
   // Обновляем select, чтобы сбросить предыдущие выбранные значения
   selectMark.length = 0;  
   selectModel.length = 0;
   selectYear.length = 0;
+  // Прячем кнопку и календарь, если пользователь зашел повторно в форму
+  btn.classList.add('hide');
+  calendar.classList.add('hide');
+
   
   // Получаем данные с json файла
   getData()
@@ -81,14 +86,13 @@ const selectCar = () => {
         if(cars[i].mark === selectedMark && cars[i].model === selectedModel && cars[i].year === selectedYear) {
           let deliveryStart = cars[i].delivery.split('-')[0].split('.').reverse().join('-'),
               deliveryEnd = cars[i].delivery.split('-')[1].split('.').reverse().join('-');
-          console.log(cars[i]);
 
+          calendar.classList.remove('hide');
           // Настройка календаря
           $(function () {
             $('#calendar').datepicker({
               minDate: new Date(deliveryStart),
               maxDate: new Date(deliveryEnd),
-              clearButton: 'true',
               position: 'top center',
               onSelect(formattedDate, date, inst) { //При выборе даты закрывается календарь, затем закрывается форма
                 inst.hide();

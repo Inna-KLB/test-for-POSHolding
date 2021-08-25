@@ -8,12 +8,7 @@
   & .square
     width: calc(250px/2)
     height: calc(250px/2)
-    background-color: $main-background
-    &_top-left, &_top-right, &_bottom-left, &_bottom-right
-      animation-duration: 2s
-      animation-fill-mode: forwards
-      animation-timing-function: linear
-      animation-delay: 2s
+    background-color: $turquoise
     &_top-left
       grid-column: 1/2
       grid-row: 1/2
@@ -32,53 +27,3 @@
       grid-column: 2/2
       grid-row: 2/2
       align-self: start
-
-@keyframes top-left
-  0%
-    align-self: end
-    justify-self: end
-  10%
-    position: absolute
-    left: 40%
-    top: 30%
-  100% 
-    position: absolute
-    left: -150px
-    top: -150px
-
-@keyframes top-right
-  0%
-    align-self: end
-  10%
-    position: absolute
-    right: 40%
-    top: 30%
-  100% 
-    position: absolute
-    right: -150px
-    top: -150px
-
-@keyframes bottom-left
-  0%
-    align-self: start
-    justify-self: end
-  10%
-    position: absolute
-    left: 40%
-    bottom: 30%
-  100% 
-    position: absolute
-    left: -150px
-    bottom: -150px
-
-@keyframes bottom-right
-  0%
-    align-self: start
-  10%
-    position: absolute
-    right: 40%
-    bottom: 30%
-  100% 
-    position: absolute
-    right: -150px
-    bottom: -150px

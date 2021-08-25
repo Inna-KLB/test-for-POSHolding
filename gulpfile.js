@@ -100,6 +100,18 @@ gulp.task('json', () => {
   .pipe(browserSync.stream());
 });
 
+gulp.task('css-datepicker', () => {
+  return gulp.src(src +'./assets/css/*.css')
+  .pipe (gulp.dest(dist + './css'))
+  .pipe(browserSync.stream());
+});
+
+gulp.task('js-datepicker', () => {
+  return gulp.src(src +'./assets/js/datepicker.min.js')
+  .pipe (gulp.dest(dist + './js'))
+  .pipe(browserSync.stream());
+});
+
 gulp.task('browser-sync', () => {
   browserSync.init({
     server: {
@@ -111,11 +123,12 @@ gulp.task('browser-sync', () => {
 });
 
 gulp.task('watch-files', () => {
-  // gulp.watch(src + '**/*.html', gulp.parallel('html'));
   gulp.watch(src + '*.html', gulp.parallel('html'));
   gulp.watch(src + 'assets/sass/**/*.sass', gulp.parallel('sass'));
   gulp.watch(src + 'assets/js/**/*.js', gulp.parallel('build-js'));
   gulp.watch(src + 'assets/*.json', gulp.parallel('json'));
+  gulp.watch(src + 'assets/css/*.css', gulp.parallel('css-datepicker'));
+  gulp.watch(src + 'assets/js/datepicker.min.js', gulp.parallel('js-datepicker'));
 });
 
 
@@ -124,5 +137,5 @@ gulp.task('clean-folder', () => {
   .pipe(clean())
 });
 
-gulp.task('build', gulp.series('clean-folder', gulp.parallel('html', 'sass', 'build-js', 'json')));
+gulp.task('build', gulp.series('clean-folder', gulp.parallel('html', 'sass', 'build-js', 'json', 'css-datepicker', 'js-datepicker')));
 gulp.task('default', gulp.parallel('watch-files', 'build', 'browser-sync'));

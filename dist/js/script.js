@@ -6373,13 +6373,15 @@ var closeForm = function closeForm(mark, model, year, delivery) {
   var modal = document.querySelector('.modal'),
       circle = document.querySelector('.circle'),
       circleSection = document.querySelector('.circle-section'),
-      squareSection = document.querySelector('.square-section');
+      squareSection = document.querySelector('.square-section'); // При закрытии формы появляется надпись о выборе пользователя
+
   modal.classList.add('hide');
   circle.remove();
   var text = document.createElement('div');
   text.classList.add('text-delivery');
   text.innerHTML = "\n    <p>\u0412\u044B \u0432\u044B\u0431\u0440\u0430\u043B\u0438 ".concat(mark, " ").concat(model, " ").concat(year, ", \u0434\u043E\u0441\u0442\u0430\u0432\u043A\u0430 ").concat(delivery, ".</p>\n    <button class=\"start\">\u041D\u0430\u0447\u0430\u0442\u044C \u0437\u0430\u043D\u043E\u0432\u043E</button>\n    ");
-  circleSection.append(text);
+  circleSection.append(text); // При нажатии на кнопку появляется стартовая страница с квадратами
+
   var btnStart = document.querySelector('.start');
   btnStart.addEventListener('click', function () {
     Object(_createSquares__WEBPACK_IMPORTED_MODULE_1__["default"])(squareSection, circleSection);
@@ -6408,14 +6410,16 @@ __webpack_require__.r(__webpack_exports__);
 
 var createCircle = function createCircle(containerSquare, containerCircle) {
   containerSquare.classList.add('hide');
-  containerCircle.classList.remove('hide');
+  containerCircle.classList.remove('hide'); // Создание круга с надписью
+
   var circle = document.createElement('div');
   circle.classList.add('circle');
   var circleText = document.createElement('span');
   circleText.textContent = 'Нажать';
   circleText.classList.add('circle__text');
   circle.prepend(circleText);
-  containerCircle.append(circle);
+  containerCircle.append(circle); // Добавление анимации на круг
+
   circle.style.animationName = 'rotate-circle';
   setTimeout(function () {
     circleText.addEventListener('click', function () {
@@ -6524,18 +6528,13 @@ var createSelectOptions = function createSelectOptions(carsArray, select, parame
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var core_js_modules_web_timers_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/web.timers.js */ "./node_modules/core-js/modules/web.timers.js");
-/* harmony import */ var core_js_modules_web_timers_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_timers_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _createCircle__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./createCircle */ "./src/assets/js/modules/createCircle.js");
-/* harmony import */ var _setAnimationSquare__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./setAnimationSquare */ "./src/assets/js/modules/setAnimationSquare.js");
-
-// import setAnimationSquare from "setAnimationSquare";
-
+/* harmony import */ var _setAnimationSquare__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./setAnimationSquare */ "./src/assets/js/modules/setAnimationSquare.js");
 
 
 var createSquares = function createSquares(containerSquare, containerCircle) {
   containerCircle.classList.add('hide');
-  containerSquare.classList.remove('hide');
+  containerSquare.classList.remove('hide'); // Создание квадратов и размещение их на странице
+
   var firstSquare = document.createElement('div');
   firstSquare.classList.add('square', 'square_top-left');
   containerSquare.append(firstSquare);
@@ -6548,10 +6547,7 @@ var createSquares = function createSquares(containerSquare, containerCircle) {
   var fourthSquare = document.createElement('div');
   fourthSquare.classList.add('square', 'square_bottom-right');
   containerSquare.append(fourthSquare);
-  Object(_setAnimationSquare__WEBPACK_IMPORTED_MODULE_2__["default"])();
-  setTimeout(function () {
-    Object(_createCircle__WEBPACK_IMPORTED_MODULE_1__["default"])(containerSquare, containerCircle);
-  }, 4000);
+  Object(_setAnimationSquare__WEBPACK_IMPORTED_MODULE_0__["default"])(containerSquare, containerCircle);
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (createSquares);
@@ -6596,19 +6592,31 @@ var selectCar = function selectCar() {
   var selectMark = document.querySelector('#mark'),
       selectModel = document.querySelector('#model'),
       selectYear = document.querySelector('#year'),
-      btn = document.querySelector('.form__btn');
+      btn = document.querySelector('.form__btn'),
+      calendar = document.querySelector('.datepicker-here');
   var sortCarsByMark = [],
-      sortCarsByModel = [],
-      markIndex,
-      modelIndex,
-      yearIndex,
-      selectedMark,
-      selectedModel,
-      selectedYear; // Обновляем select, чтобы сбросить предыдущие выбранные значения
+      // массив для сбора отсортированных машин по их марке
+  sortCarsByModel = [],
+      // массив для сбора отсортированных машин по их марке и модели
+  markIndex,
+      // индекс выбранной марки
+  modelIndex,
+      // индекс выбранной модели
+  yearIndex,
+      // индекс выбранного года выпуска
+  selectedMark,
+      // значение выбранной марки
+  selectedModel,
+      // значение выбранной модели
+  selectedYear; // значение выбранного года выпуска
+  // Обновляем select, чтобы сбросить предыдущие выбранные значения
 
   selectMark.length = 0;
   selectModel.length = 0;
-  selectYear.length = 0; // Получаем данные с json файла
+  selectYear.length = 0; // Прячем кнопку и календарь, если пользователь зашел повторно в форму
+
+  btn.classList.add('hide');
+  calendar.classList.add('hide'); // Получаем данные с json файла
 
   Object(_services_getData__WEBPACK_IMPORTED_MODULE_6__["default"])().then(function (res) {
     var cars = res['cars']; // Создаем options в каждом select
@@ -6666,13 +6674,12 @@ var selectCar = function selectCar() {
         if (cars[i].mark === selectedMark && cars[i].model === selectedModel && cars[i].year === selectedYear) {
           var deliveryStart = cars[i].delivery.split('-')[0].split('.').reverse().join('-'),
               deliveryEnd = cars[i].delivery.split('-')[1].split('.').reverse().join('-');
-          console.log(cars[i]); // Настройка календаря
+          calendar.classList.remove('hide'); // Настройка календаря
 
           $(function () {
             $('#calendar').datepicker({
               minDate: new Date(deliveryStart),
               maxDate: new Date(deliveryEnd),
-              clearButton: 'true',
               position: 'top center',
               onSelect: function onSelect(formattedDate, date, inst) {
                 //При выборе даты закрывается календарь, затем закрывается форма
@@ -6706,23 +6713,50 @@ var selectCar = function selectCar() {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var core_js_modules_web_timers_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/web.timers.js */ "./node_modules/core-js/modules/web.timers.js");
 /* harmony import */ var core_js_modules_web_timers_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_timers_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _createCircle__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./createCircle */ "./src/assets/js/modules/createCircle.js");
 
 
-var setAnimationSquare = function setAnimationSquare() {
+
+var setAnimationSquare = function setAnimationSquare(containerSquare, containerCircle) {
   var squareTopLeft = document.querySelector('.square_top-left'),
       squareTopRight = document.querySelector('.square_top-right'),
       squareBottomLeft = document.querySelector('.square_bottom-left'),
-      squareBottomRight = document.querySelector('.square_bottom-right');
-  squareTopLeft.style.animationName = 'top-left';
-  squareTopRight.style.animationName = 'top-right';
-  squareBottomLeft.style.animationName = 'bottom-left';
-  squareBottomRight.style.animationName = 'bottom-right';
-  setTimeout(function () {
-    squareTopLeft.remove();
-    squareTopRight.remove();
-    squareBottomLeft.remove();
-    squareBottomRight.remove();
-  }, 4000);
+      squareBottomRight = document.querySelector('.square_bottom-right'); // Значения сторон горизонтальной и вертикальной
+
+  var horizontalSide = squareTopLeft.getBoundingClientRect().left,
+      verticalSide = squareTopLeft.getBoundingClientRect().top; // Считаем коэффициент сторон
+
+  var coefficient = horizontalSide > verticalSide ? horizontalSide / verticalSide : verticalSide / horizontalSide;
+  var timer = setInterval(function () {
+    // Высчитываемколичество пикселей для каждого шага анимации
+    horizontalSide = horizontalSide > verticalSide ? horizontalSide - coefficient : horizontalSide - 1;
+    verticalSide = horizontalSide > verticalSide ? verticalSide - 1 : verticalSide - coefficient; // Анимация для верхнего левого квадрата
+
+    squareTopLeft.style.position = 'absolute';
+    squareTopLeft.style.left = horizontalSide - coefficient + 'px';
+    squareTopLeft.style.top = verticalSide - 1 + 'px'; // Анимация для верхнего правого квадрата
+
+    squareTopRight.style.position = 'absolute';
+    squareTopRight.style.right = horizontalSide - coefficient + 'px';
+    squareTopRight.style.top = verticalSide - 1 + 'px'; // Анимация для нижнего левого квадрата
+
+    squareBottomLeft.style.position = 'absolute';
+    squareBottomLeft.style.left = horizontalSide + coefficient + 'px';
+    squareBottomLeft.style.bottom = verticalSide + 1 + 'px'; // Анимация для нижнего правого квадрата
+
+    squareBottomRight.style.position = 'absolute';
+    squareBottomRight.style.right = horizontalSide - coefficient + 'px';
+    squareBottomRight.style.bottom = verticalSide + 1 + 'px'; // При скрытии элементов прекращается анимация, удаляются элементы и появляется круг с надписью
+
+    if (squareTopLeft.getBoundingClientRect().left < -150 && squareTopLeft.getBoundingClientRect().top < -150) {
+      clearInterval(timer);
+      squareBottomRight.remove();
+      squareTopLeft.remove();
+      squareTopRight.remove();
+      squareBottomLeft.remove();
+      Object(_createCircle__WEBPACK_IMPORTED_MODULE_1__["default"])(containerSquare, containerCircle);
+    }
+  }, 10);
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (setAnimationSquare);

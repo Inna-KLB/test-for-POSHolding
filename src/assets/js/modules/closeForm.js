@@ -6,6 +6,7 @@ const closeForm = (mark, model, year, delivery) => {
         circleSection = document.querySelector('.circle-section'),
         squareSection = document.querySelector('.square-section');
 
+  // При закрытии формы появляется надпись о выборе пользователя
   modal.classList.add('hide');
   circle.remove();
   let text = document.createElement('div');
@@ -15,7 +16,8 @@ const closeForm = (mark, model, year, delivery) => {
     <button class="start">Начать заново</button>
     `;
   circleSection.append(text);
-
+  
+  // При нажатии на кнопку появляется стартовая страница с квадратами
   const btnStart = document.querySelector('.start');
   btnStart.addEventListener('click', () => {
     createSquares(squareSection, circleSection);

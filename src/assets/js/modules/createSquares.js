@@ -1,11 +1,9 @@
-// import setAnimationSquare from "setAnimationSquare";
-import createCircle from "./createCircle";
 import setAnimationSquare from "./setAnimationSquare";
 
 const createSquares = (containerSquare, containerCircle) => {
   containerCircle.classList.add('hide');
   containerSquare.classList.remove('hide');
-  
+  // Создание квадратов и размещение их на странице
   const firstSquare = document.createElement('div');
     firstSquare.classList.add('square', 'square_top-left');
     containerSquare.append(firstSquare);
@@ -22,9 +20,6 @@ const createSquares = (containerSquare, containerCircle) => {
     fourthSquare.classList.add('square', 'square_bottom-right');
     containerSquare.append(fourthSquare);
      
-    setAnimationSquare();
-    setTimeout(() => {
-      createCircle(containerSquare, containerCircle);
-    }, 4000);
+    setAnimationSquare(containerSquare, containerCircle);
 };
 export default createSquares;

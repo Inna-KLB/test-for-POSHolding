@@ -7,7 +7,7 @@
   & .circle
     width: 250px
     height: 250px
-    background-color: $main-background
+    background-color: $turquoise
     border-radius: 50%
     display: flex
     justify-content: center
@@ -18,9 +18,12 @@
     animation-delay: 1s
     &__text
       cursor: pointer
-      color: $main-text-color
+      color: $grey
       font-size: 1.1rem
       transform: rotate(180deg)
+      font-weight: 600
+      &:hover
+        color: $main-background
 
 @keyframes rotate-circle
   0%
